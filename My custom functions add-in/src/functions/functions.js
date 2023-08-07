@@ -91,23 +91,28 @@ export async function getStarCount(userName, repoName) {
 /**
  * calculate prediction by prophet
  * @customfunction
- * @param {string} ds date values
- * @param {string} y observation values
+ * @param {string} pw password
  */
-export async function prophet(ds, y) {
-  return 1;
+export async function prophet(pw) {
+  const url = "https://pred.inctore.com/api/predict";
   try {
-    const url = "https://pred.inctore.com/api/predict";
     const response = await fetch(url, {
       headers: {
-        Authorization: "Basic " + btoa(`preduser:1lzS0nwkDPQxSBVEvLFApEdle9XdpR`),
+        Authorization: "Basic " + btoa(`preduser:${pw}`),
+        "Content-Type": "application/json",
       },
       method: "POST",
-      body: JSON.stringify({ ds: ["2023-01-01", "2023-01-02"], y: [1, 2], ds2: ["2023-01-03"] }),
+      body: JSON.stringify({
+        ds: ["2023-01-01", "2023-01-02"],
+        y: [1, 2],
+        ds2: ["2023-01-03"],
+      }),
     });
-    return response;
   } catch (error) {
-    let error2 = new CustomFunctions.Error(CustomFunctions.ErrorCode.invalidValue, JSON.stringify(error));
-    throw error2;
+    return JSON.stringify(error);
+    return 100;
+    return error;
   }
+  return 1;
+  return (await response.json())[0];
 }
