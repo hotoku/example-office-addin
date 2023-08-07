@@ -91,28 +91,15 @@ export async function getStarCount(userName, repoName) {
 /**
  * calculate prediction by prophet
  * @customfunction
- * @param {string} pw password
+ * @return {string} status code
  */
-export async function prophet(pw) {
-  const url = "https://pred.inctore.com/api/predict";
+export async function prophet() {
   try {
-    const response = await fetch(url, {
-      headers: {
-        Authorization: "Basic " + btoa(`preduser:${pw}`),
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({
-        ds: ["2023-01-01", "2023-01-02"],
-        y: [1, 2],
-        ds2: ["2023-01-03"],
-      }),
-    });
+    // const url = "https://api.github.com/repose/hotoku/bqrun";
+    const url = "https://pred.inctore.com/";
+    const response = await fetch(url);
+    return "ok";
   } catch (error) {
-    return JSON.stringify(error);
-    return 100;
-    return error;
+    return "error";
   }
-  return 1;
-  return (await response.json())[0];
 }
