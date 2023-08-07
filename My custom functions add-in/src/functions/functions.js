@@ -94,12 +94,38 @@ export async function getStarCount(userName, repoName) {
  * @return {string} status code
  */
 export async function prophet() {
+  const url = "https://pred.inctore.com/api/predict";
   try {
-    // const url = "https://api.github.com/repose/hotoku/bqrun";
-    const url = "https://pred.inctore.com/";
-    const response = await fetch(url);
-    return "ok";
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        ds: ["2023-01-01", "2023-01-02"],
+        y: [1, 2],
+        ds2: ["2023-01-03"],
+      }),
+    });
   } catch (error) {
-    return "error";
+    return JSON.stringify(error);
+  }
+  return "ok";
+}
+
+/**
+ * calculate prediction by prophet
+ * @customfunction
+ * @return {string} status code
+ */
+export async function home() {
+  const url = "https://pred.inctore.com/";
+  try {
+    const response = await fetch(url);
+    const text = await response.text();
+    return text;
+  } catch (error) {
+    return JSON.stringify(error);
   }
 }
