@@ -98,16 +98,21 @@ export async function prophet() {
   try {
     const response = await fetch(url, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
       body: JSON.stringify({
         ds: ["2023-01-01", "2023-01-02"],
         y: [1, 2],
         ds2: ["2023-01-03"],
       }),
     });
+    const vals = await response.json()
+    return JSON.stringify([vals[0], 2, 3]);
   } catch (error) {
     return JSON.stringify(error);
   }
-  return "ok";
 }
 
 /**
