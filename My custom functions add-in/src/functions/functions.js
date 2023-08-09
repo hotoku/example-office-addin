@@ -97,10 +97,6 @@ export async function prophet() {
   const url = "https://pred.inctore.com/api/predict";
   try {
     const response = await fetch(url, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
       method: "POST",
       body: JSON.stringify({
         ds: ["2023-01-01", "2023-01-02"],
